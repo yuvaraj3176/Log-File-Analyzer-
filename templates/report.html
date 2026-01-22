@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Report</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="report-body">
+
+    <div class="dashboard fade-in">
+
+        <h1>📊 Log Analysis Report</h1>
+
+        <div class="cards">
+            <div class="card">
+                <h2>{{ total_requests }}</h2>
+                <p>Total Requests</p>
+            </div>
+
+            <div class="card error">
+                <h2>{{ total_errors }}</h2>
+                <p>Total Errors</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>❌ Error-wise Frequency</h2>
+            <ul class="list">
+                {% for code, count in error_counts.items() %}
+                <li>
+                    <span>Error {{ code }}</span>
+                    <span>{{ count }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Top 5 Error Generating IPs</h2>
+            <ul class="list">
+                {% for ip, count in top_ips.items() %}
+                <li>
+                    <span>{{ ip }}</span>
+                    <span>{{ count }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if chart %}
+        <div class="section chart-box">
+            <h2>📈 Error Distribution</h2>
+            <img src="/{{ chart }}" alt="Error Chart">
+        </div>
+        {% else %}
+        <p class="no-data">No error data available to display chart.</p>
+        {% endif %}
+
+        <a href="/" class="btn-secondary">⬅ Back to Home</a>
+
+    </div>
+
+</body>
+</html>
